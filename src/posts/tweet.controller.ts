@@ -1,11 +1,13 @@
-import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, ParseUUIDPipe, Patch, Post, UseGuards, UseInterceptors } from '@nestjs/common';
 import { Tweet, User } from 'src/typeorm';
 import { GetUser } from 'src/user/decorator/get-user.docorator';
 import { JwtAuthGuard } from 'src/user/guards/jwt-auth.guard';
 import { CreatePostsDto } from './dto/create.tweet.dto';
 import { TweetService } from './tweet.service';
 
+// UseInterceptors： tweets〜にリクエスト時にintercepter系メソッド(Excludeなど)を通過する
 @Controller('tweets')
+@UseInterceptors(ClassSerializerInterceptor)
 export class TweetController {
     constructor(private readonly tweetService: TweetService) { }
 

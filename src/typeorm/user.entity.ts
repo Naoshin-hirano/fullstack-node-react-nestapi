@@ -1,3 +1,4 @@
+import { Exclude } from "class-transformer";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Tweet } from "./tweet.entity";
 
@@ -10,6 +11,7 @@ export class User {
     username: string;
 
     @Column()
+    @Exclude({ toPlainOnly: true })
     password: string;
 
     @Column()
