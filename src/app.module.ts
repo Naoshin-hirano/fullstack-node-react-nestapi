@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostsModule } from './posts/posts.module';
+import { UserModule } from './user/user.module';
 import entities from './typeorm';
 
 @Module({
@@ -15,7 +16,9 @@ import entities from './typeorm';
             database: 'fullstack_nestapp',
             entities,
             synchronize: true,
-        })],
+        }),
+        UserModule
+    ],
     controllers: [],
     providers: [],
 })
