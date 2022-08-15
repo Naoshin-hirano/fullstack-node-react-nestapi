@@ -31,6 +31,7 @@ export class TweetController {
     };
 
     @Patch(':id')
+    @UseGuards(JwtAuthGuard)
     async update(
         @Param('id', ParseUUIDPipe) id: string,
         @Body('title') title: string,
@@ -40,6 +41,7 @@ export class TweetController {
     };
 
     @Delete(':id')
+    @UseGuards(JwtAuthGuard)
     async delete(@Param('id', ParseUUIDPipe) id: string): Promise<string> {
         return await this.tweetService.delete(id);
     };
