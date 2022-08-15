@@ -1,4 +1,4 @@
-export interface PostModel {
+export interface TweetModel {
     id: string;
     title: string;
     postText: string;

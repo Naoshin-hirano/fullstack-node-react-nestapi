@@ -1,7 +1,7 @@
-import { Posts } from "./posts.entity";
-import { User } from "./users.entity";
+import { Tweet } from "./tweet.entity";
+import { User } from "./user.entity";
 
-const entities = [Posts, User];
-export { Posts, User };
+const entities = [Tweet, User];
+export { Tweet, User };
 
 export default entities;

@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PostsModule } from './posts/posts.module';
+import { TweetModule } from './posts/tweet.module';
 import { UserModule } from './user/user.module';
 import entities from './typeorm';
 
 @Module({
     imports: [
-        PostsModule,
+        TweetModule,
         TypeOrmModule.forRoot({
             type: 'mysql',
             host: 'localhost',

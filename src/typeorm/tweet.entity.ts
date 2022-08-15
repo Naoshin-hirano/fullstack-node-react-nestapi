@@ -1,8 +1,8 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { User } from "./users.entity";
+import { User } from "./user.entity";
 // typescriptでのモデルのようなもの
 @Entity()
-export class Posts {
+export class Tweet {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
@@ -28,7 +28,7 @@ export class Posts {
     @Column()
     updatedAt: string;
 
-    @ManyToOne(() => User, (user) => user.posts)
+    @ManyToOne(() => User, (user) => user.tweets)
     user: User;
 
     @Column()

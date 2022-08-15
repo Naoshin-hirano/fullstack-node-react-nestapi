@@ -1,5 +1,5 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Posts } from "./posts.entity";
+import { Tweet } from "./tweet.entity";
 
 @Entity()
 export class User {
@@ -18,6 +18,6 @@ export class User {
     @Column()
     updatedAt: string;
 
-    @OneToMany(() => Posts, (posts) => posts.user)
-    posts: Posts[];
+    @OneToMany(() => Tweet, (tweet) => tweet.user)
+    tweets: Tweet[];
 }
