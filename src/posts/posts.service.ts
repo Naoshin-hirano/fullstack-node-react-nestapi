@@ -1,42 +1,39 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreatePostsDto } from './dto/create.posts.dto';
-import { PostModel } from './posts.model';
-import { v4 as uuid } from 'uuid';
+import { PostsRepository } from './posts.repository';
+import { Posts } from 'src/typeorm';
 
 @Injectable()
 export class PostsService {
-    private posts: PostModel[] = [];
+    constructor(private readonly postsRepository: PostsRepository) { }
 
-    findAll(): PostModel[] {
-        return this.posts;
+    async findAll(): Promise<Posts[]> {
+        return await this.postsRepository.find();
     };
 
-    findById(id: string): PostModel {
-        const found = this.posts.find(post => post.id === id);
+    async findById(id: string): Promise<Posts> {
+        const found = await this.postsRepository.findOne(id);
         if (!found) {
             throw new NotFoundException('投稿が見つかりません');
         }
         return found;
     };
 
-    create(createPostsDto: CreatePostsDto): PostModel {
-        const post: PostModel = {
-            id: uuid(),
-            ...createPostsDto,
-        }
-        this.posts.push(post);
-        return post;
+    async create(createPostsDto: CreatePostsDto): Promise<Posts> {
+        return await this.postsRepository.createPost(createPostsDto);
     };
 
-    update(id: string, title: string, postText: string): PostModel {
-        const post = this.findById(id);
+    async update(id: string, title: string, postText: string): Promise<Posts> {
+        const post = await this.findById(id);
         post.title = title;
         post.postText = postText;
+        post.updatedAt = new Date().toISOString();
+        await this.postsRepository.save(post);
         return post;
     };
 
-    delete(id: string): string {
-        this.posts = this.posts.filter(post => post.id !== id);
+    async delete(id: string): Promise<string> {
+        await this.postsRepository.delete({ id });
         return '削除完了しました';
     };
 }

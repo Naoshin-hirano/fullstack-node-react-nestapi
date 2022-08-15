@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Patch, Post } from '@nestjs/common';
+import { Posts } from 'src/typeorm';
 import { CreatePostsDto } from './dto/create.posts.dto';
-import { PostModel } from './posts.model';
 import { PostsService } from './posts.service';
 
 @Controller('posts')
@@ -8,33 +8,33 @@ export class PostsController {
     constructor(private readonly postsService: PostsService) { }
 
     @Get()
-    findAll(): PostModel[] {
-        return this.postsService.findAll();
+    async findAll(): Promise<Posts[]> {
+        return await this.postsService.findAll();
     };
 
     @Get(':id')
-    findById(@Param('id', ParseUUIDPipe) id: string): PostModel {
-        return this.postsService.findById(id);
+    async findById(@Param('id', ParseUUIDPipe) id: string): Promise<Posts> {
+        return await this.postsService.findById(id);
     };
 
     @Post()
-    create(
+    async create(
         @Body() createPostsDto: CreatePostsDto,
-    ): PostModel {
-        return this.postsService.create(createPostsDto);
+    ): Promise<Posts> {
+        return await this.postsService.create(createPostsDto);
     };
 
     @Patch(':id')
-    update(
+    async update(
         @Param('id', ParseUUIDPipe) id: string,
         @Body('title') title: string,
         @Body('postText') postText: string,
-    ): PostModel {
-        return this.postsService.update(id, title, postText);
+    ): Promise<Posts> {
+        return await this.postsService.update(id, title, postText);
     };
 
     @Delete(':id')
-    delete(@Param('id', ParseUUIDPipe) id: string) {
-        return this.postsService.delete(id);
+    async delete(@Param('id', ParseUUIDPipe) id: string): Promise<string> {
+        return await this.postsService.delete(id);
     };
 }
