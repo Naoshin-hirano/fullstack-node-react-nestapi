@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreatePostsDto } from './dto/create.tweet.dto';
 import { TweetRepository } from './tweet.repository';
 import { Tweet, User } from 'src/typeorm';
@@ -35,7 +35,11 @@ export class TweetService {
         return post;
     };
 
-    async delete(id: string): Promise<string> {
+    async delete(id: string, user: User): Promise<string> {
+        const tweet = await this.findById(id);
+        if (tweet.userId !== user.id) {
+            throw new BadRequestException('他ユーザーのtweetは削除できません');
+        }
         await this.postsRepository.delete({ id });
         return '削除完了しました';
     };
