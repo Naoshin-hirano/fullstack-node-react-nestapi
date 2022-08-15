@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Patch, Post } from '@nestjs/common';
+import { CreatePostsDto } from './dto/create.posts.dto';
 import { PostModel } from './posts.model';
 import { PostsService } from './posts.service';
 
@@ -12,29 +13,20 @@ export class PostsController {
     };
 
     @Get(':id')
-    findById(@Param('id') id: string): PostModel {
+    findById(@Param('id', ParseUUIDPipe) id: string): PostModel {
         return this.postsService.findById(id);
     };
 
     @Post()
     create(
-        @Body('id') id: string,
-        @Body('title') title: string,
-        @Body('postText') postText: string,
-        @Body('username') username: string,
+        @Body() createPostsDto: CreatePostsDto,
     ): PostModel {
-        const post: PostModel = {
-            id,
-            title,
-            postText,
-            username,
-        };
-        return this.postsService.create(post);
+        return this.postsService.create(createPostsDto);
     };
 
     @Patch(':id')
     update(
-        @Param('id') id: string,
+        @Param('id', ParseUUIDPipe) id: string,
         @Body('title') title: string,
         @Body('postText') postText: string,
     ): PostModel {
@@ -42,7 +34,7 @@ export class PostsController {
     };
 
     @Delete(':id')
-    delete(@Param('id') id: string) {
+    delete(@Param('id', ParseUUIDPipe) id: string) {
         return this.postsService.delete(id);
     };
 }
