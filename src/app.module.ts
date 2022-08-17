@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TweetModule } from './posts/tweet.module';
 import { UserModule } from './user/user.module';
+import { LikeModule } from './likes/likes.module';
 import entities from './typeorm';
 
 @Module({
@@ -17,7 +18,8 @@ import entities from './typeorm';
             entities,
             synchronize: true,
         }),
-        UserModule
+        UserModule,
+        LikeModule
     ],
     controllers: [],
     providers: [],
