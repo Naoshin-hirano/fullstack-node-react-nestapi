@@ -1,4 +1,5 @@
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Comment } from "./comments.entity";
 import { Likes } from "./likes.entity";
 import { User } from "./user.entity";
 // typescriptでのモデルのようなもの
@@ -37,4 +38,7 @@ export class Tweet {
 
     @OneToMany(() => Likes, (like) => like.tweet)
     likes: Likes[];
+
+    @OneToMany(() => Comment, (comment) => comment.tweet)
+    comments: Comment[];
 }

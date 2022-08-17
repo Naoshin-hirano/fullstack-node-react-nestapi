@@ -3,6 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TweetModule } from './posts/tweet.module';
 import { UserModule } from './user/user.module';
 import { LikeModule } from './likes/likes.module';
+import { CommentsModule } from './comments/comments.module';
+import { CommentsController } from './comments/comments.controller';
 import entities from './typeorm';
 
 @Module({
@@ -19,9 +21,10 @@ import entities from './typeorm';
             synchronize: true,
         }),
         UserModule,
-        LikeModule
+        LikeModule,
+        CommentsModule
     ],
-    controllers: [],
+    controllers: [CommentsController],
     providers: [],
 })
 export class AppModule { }
