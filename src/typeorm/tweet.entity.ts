@@ -1,6 +1,7 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Comment } from "./comments.entity";
 import { Likes } from "./likes.entity";
+import { Tag } from "./tag.entity";
 import { User } from "./user.entity";
 // typescriptでのモデルのようなもの
 @Entity()
@@ -41,4 +42,9 @@ export class Tweet {
 
     @OneToMany(() => Comment, (comment) => comment.tweet)
     comments: Comment[];
+
+    @ManyToMany(() => Tag, (tag) => tag.tweets, {
+        onDelete: "CASCADE",
+    })
+    tags: Tag[];
 }
