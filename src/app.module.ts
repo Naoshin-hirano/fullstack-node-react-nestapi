@@ -4,7 +4,6 @@ import { TweetModule } from './posts/tweet.module';
 import { UserModule } from './user/user.module';
 import { LikeModule } from './likes/likes.module';
 import { CommentsModule } from './comments/comments.module';
-import { CommentsController } from './comments/comments.controller';
 import entities from './typeorm';
 
 @Module({
@@ -22,9 +21,9 @@ import entities from './typeorm';
         }),
         UserModule,
         LikeModule,
-        CommentsModule
+        CommentsModule,
     ],
-    controllers: [CommentsController],
+    controllers: [],
     providers: [],
 })
 export class AppModule { }
