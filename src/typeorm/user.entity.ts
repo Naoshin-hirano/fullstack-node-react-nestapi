@@ -1,6 +1,7 @@
 import { Exclude } from "class-transformer";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Likes } from "./likes.entity";
+import { Relationships } from "./relationships.entity";
 import { Tweet } from "./tweet.entity";
 
 @Entity()
@@ -26,4 +27,10 @@ export class User {
 
     @OneToMany(() => Likes, (like) => like.user)
     likes: Likes[];
+
+    @OneToMany(() => Relationships, (relationship) => relationship.followed)
+    followed: Relationships[];
+
+    @OneToMany(() => Relationships, (relationship) => relationship.following)
+    following: Relationships[];
 }
