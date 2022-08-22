@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
-import { CreatePostsDto } from './dto/create.tweet.dto';
+import { CreateTweetDto } from './dto/create.tweet.dto';
 import { TweetRepository } from './tweet.repository';
 import { Tweet, User } from 'src/typeorm';
 
@@ -8,7 +8,9 @@ export class TweetService {
     constructor(private readonly postsRepository: TweetRepository) { }
 
     async findAll(): Promise<Tweet[]> {
-        return await this.postsRepository.find();
+        return await this.postsRepository.find({
+            relations: ['likes']
+        });
     };
 
     async findById(id: string): Promise<Tweet> {
@@ -20,10 +22,10 @@ export class TweetService {
     };
 
     async create(
-        createPostsDto: CreatePostsDto,
+        createTweetDto: CreateTweetDto,
         user: User,
     ): Promise<Tweet> {
-        return await this.postsRepository.createPost(createPostsDto, user);
+        return await this.postsRepository.createPost(createTweetDto, user);
     };
 
     async update(id: string, title: string, postText: string): Promise<Tweet> {

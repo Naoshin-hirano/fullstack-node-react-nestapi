@@ -2,7 +2,7 @@ import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Parse
 import { Tweet, User } from 'src/typeorm';
 import { GetUser } from 'src/user/decorator/get-user.docorator';
 import { JwtAuthGuard } from 'src/user/guards/jwt-auth.guard';
-import { CreatePostsDto } from './dto/create.tweet.dto';
+import { CreateTweetDto } from './dto/create.tweet.dto';
 import { TweetService } from './tweet.service';
 
 // UseInterceptors： tweets〜にリクエスト時にintercepter系メソッド(Excludeなど)を通過する
@@ -24,10 +24,10 @@ export class TweetController {
     @Post()
     @UseGuards(JwtAuthGuard)
     async create(
-        @Body() createPostsDto: CreatePostsDto,
+        @Body() createTweetDto: CreateTweetDto,
         @GetUser() user: User,
     ): Promise<Tweet> {
-        return await this.tweetService.create(createPostsDto, user);
+        return await this.tweetService.create(createTweetDto, user);
     };
 
     @Patch(':id')

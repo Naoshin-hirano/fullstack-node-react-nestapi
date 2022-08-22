@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString, MaxLength } from "class-validator";
 
-export class CreatePostsDto {
+export class CreateTweetDto {
     @IsString()
     @IsNotEmpty()
     @MaxLength(40)
@@ -9,8 +9,4 @@ export class CreatePostsDto {
     @IsString()
     @IsNotEmpty()
     postText: string;
-
-    @IsString()
-    @IsNotEmpty()
-    username: string;
 }
