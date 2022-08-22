@@ -5,6 +5,7 @@ import { UserModule } from './user/user.module';
 import { LikeModule } from './likes/likes.module';
 import { CommentsModule } from './comments/comments.module';
 import { RelationshipsModule } from './relationships/relationships.module';
+import { TagsModule } from './tags/tags.module';
 import entities from './typeorm';
 
 @Module({
@@ -24,6 +25,7 @@ import entities from './typeorm';
         LikeModule,
         CommentsModule,
         RelationshipsModule,
+        TagsModule,
     ],
     controllers: [],
     providers: [],
