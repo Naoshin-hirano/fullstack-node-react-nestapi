@@ -1,24 +1,24 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Tweet } from "./tweet.entity";
-import { User } from "./user.entity";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Posts } from './post.entity';
+import { User } from './user.entity';
 
 @Entity()
 export class Likes {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-    @Column()
-    createdAt: string;
+  @Column()
+  createdAt: string;
 
-    @ManyToOne(() => User, (user) => user.likes)
-    user: User;
+  @ManyToOne(() => User, (user) => user.likes)
+  user: User;
 
-    @ManyToOne(() => Tweet, (tweet) => tweet.likes)
-    tweet: Tweet
+  @ManyToOne(() => Posts, (post) => post.likes)
+  posts: Posts;
 
-    @Column()
-    userId: string;
+  @Column()
+  userId: string;
 
-    @Column()
-    tweetId: string;
+  @Column()
+  tweetId: string;
 }
